@@ -1,11 +1,15 @@
 {
   "name": "dly-parser",
   "version": "1.0.0",
-  "main": "",
+  "main": "./dist/index.js",
+  "bin": {
+    "dly-parser": "./dist/cli.js"
+  },
   "scripts": {
     "clean": "rimraf ./dist",
     "build": "npm run clean && tsc",
-    "test": "mocha"
+    "test": "mocha",
+    "prepare": "npm run build"
   },
   "author": "",
   "license": "ISC",
@@ -15,5 +19,8 @@
     "mocha": "^10.4.0",
     "rimraf": "^5.0.5",
     "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "glob": "^10.3.12"
   }
 }
