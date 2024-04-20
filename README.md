@@ -67,7 +67,7 @@ const header = await dly.parseHeader()
 console.log(`Format-Version: ${header.archiveVersion & 0x0000FFFF}.${(header.archiveVersion & 0xFFFF0000) >> 16}`)
 ```
 
-Have a look at the cli.ts file as an example.
+Have a look at the [cli.ts](src/cli.ts) file as an example.
 
 # Contributing
 
