@@ -19,7 +19,7 @@ export class DLYContainer {
         if (magic !== 0x444C5900) {
             throw new Error("Invalid magic number / not a DLY file")
         }
-        const archiveVersion = headerData.readUInt32BE()
+        const archiveVersion = headerData.readUInt32LE()
         const unknown = headerData.readUInt32LE()
         const meta1Offset = headerData.readUInt32LE()
         const meta2Offset = headerData.readUInt32LE()
@@ -56,16 +56,16 @@ export class DLYContainer {
         }
     }
 
-    // async files(): Promise<FilesArray> {
-    //     if (!this.header) {
-    //         await this.parseHeader()
-    //     }
-    //     if(!this.header) {
-    //         throw new Error("Failed to parse header")
-    //     }
-    //     const filesCount = new BufferReader(await consumers.buffer(this.containerProvider.read(this.header.filesCountOffset, this.header.filesCountOffset+4))).readUInt32LE()
-    //     return new FilesArray(this, filesCount, (this.header.dataOffset - this.header.firstFileHeaderOffset) / filesCount)
-    // }
+    async getHeader(): Promise<DIYContainerHeader> {
+        if (!this.header) {
+            await this.parseHeader()
+        }
+        if(!this.header) {
+            throw new Error("Failed to parse header")
+        }
+        return this.header
+    }
+
 
     async getFilesCount(): Promise<number> {
         if (!this.header) {
@@ -121,7 +121,7 @@ export class DLYContainer {
     }
 }
 
-type DIYContainerHeader = {
+export type DIYContainerHeader = {
     magic: number,
     archiveVersion: number,
     /** maybe subversion? */
@@ -141,7 +141,7 @@ type DIYContainerHeader = {
     dataOffset: number,
 }
 
-type FileHeader = {
+export type FileHeader = {
     name: string,
     startOffset: number,
     length: number,

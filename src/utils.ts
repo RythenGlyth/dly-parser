@@ -23,7 +23,7 @@ export class BufferReader {
     readStringArray(): string[] {
         //read strings until 0x01 terminator
         let strings: string[] = []
-        while (this.buffer.readUInt32LE(this.offset) !== 0x01) {
+        while (this.buffer.length <= this.offset && [0x01, 0x00].includes(this.buffer.readUInt32LE(this.offset))) {
             console.log(this.buffer.readUInt32LE(this.offset).toString(16));
             strings.push(this.readString())
         }
@@ -50,7 +50,7 @@ export function readNullTerminatedString(buffer: Buffer, offset: number): string
 }
 
 export function formatBytes(bytes: number, base: number = 1024, decimals: number = 2, fix_decimals: boolean = false) {
-    if (!(0+bytes)) return '0 Bytes'
+    if (!+bytes) return '0 Bytes'
 
     const sizes = base == 1024 ? ['Bytes', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB'] : ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
 

@@ -3,6 +3,7 @@ import { Readable } from "stream"
 
 export interface DLYContainerProvider {
     read(start: number, end: number): Promise<Readable>;
+    size(): Promise<number>;
 }
 
 export class DLYContainerProviderFS implements DLYContainerProvider {
@@ -13,5 +14,9 @@ export class DLYContainerProviderFS implements DLYContainerProvider {
             start: start,
             end: end
         });
+    }
+
+    async size(): Promise<number> {
+        return fs.promises.stat(this.path).then(stat => stat.size);
     }
 }

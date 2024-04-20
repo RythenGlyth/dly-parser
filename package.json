@@ -15,12 +15,15 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@types/columnify": "^1.5.4",
     "@types/node": "^20.12.7",
     "mocha": "^10.4.0",
     "rimraf": "^5.0.5",
     "typescript": "^5.4.5"
   },
   "dependencies": {
+    "caporal": "^1.4.0",
+    "columnify": "^1.6.0",
     "glob": "^10.3.12"
   }
 }
