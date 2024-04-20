@@ -2,6 +2,10 @@
 
 A tool and Node.js package to parse immanens' DLY container files.
 
+These files are used by immanens' Delivery Reader.
+
+The files start with the magic bytes `DLY` and contain a header followed by a list of files.
+
 # Command Line Usage
 
 Install the package globally:
